@@ -1,0 +1,297 @@
+0 HEAD
+1 SOUR MyHeritage.com
+2 VERS 1.0
+2 NAME MyHeritage.com Family Trees
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 CHAR UTF-8
+1 LANG Ukrainian
+0 @I1@ INDI
+1 NAME Гнат Романович /Тестенко/
+1 SEX M
+1 BIRT
+2 DATE ABT 1832
+2 PLAC Вербівка
+1 DEAT
+2 DATE BET 1900 AND 1905
+2 PLAC Вербівка
+1 FAMS @F1@
+0 @I2@ INDI
+1 NAME Килина Тимофіївна /Прикладів/
+1 SEX F
+1 BIRT
+2 DATE 1834
+2 PLAC Вербівка
+1 DEAT
+2 DATE 1910
+2 PLAC Вербівка
+1 FAMS @F1@
+0 @I3@ INDI
+1 NAME Северин Гнатович /Тестенко/
+1 SEX M
+1 BIRT
+2 DATE 12 MAR 1856
+2 PLAC Вербівка
+2 SOUR @S1@
+3 PAGE ф.1, оп.5, спр.12, арк.7
+3 QUAY 3
+3 DATA
+4 DATE 1900
+4 TEXT Метричний запис про народження Северина
+5 CONT Хрещення у Вербівці
+1 DEAT
+2 DATE 1920
+2 PLAC Вербівка
+1 FAMC @F1@
+1 FAMS @F2@
+1 FAMS @F3@
+0 @I4@ INDI
+1 NAME Одарка Гнатівна /Тестенко/
+1 SEX F
+1 BIRT
+2 DATE 1858
+2 PLAC Вербівка
+1 FAMC @F1@
+1 FAMS @F4@
+0 @I5@ INDI
+1 NAME Явдоха Гнатівна /Тестенко/
+1 SEX F
+1 BIRT
+2 DATE 1860
+2 PLAC Вербівка
+1 DEAT
+2 DATE NEVER
+1 FAMC @F1@
+0 @I6@ INDI
+1 NAME Zofia /Kowalska/
+1 SEX F
+1 BIRT
+2 DATE ABT 1834
+1 DEAT
+2 DATE ABT 1885
+2 PLAC Кам'янець
+1 FAMS @F2@
+0 @I7@ INDI
+1 NAME Іван/Jan /Тестенко/Testenko/
+1 SEX M
+1 BIRT
+2 DATE 1879
+2 PLAC Кам'янець
+2 SOUR @S2@
+3 PAGE скан 17
+3 TEXT Свідоцтво про народження Івана
+1 FAMC @F2@
+1 FAMS @F5@
+0 @I8@ INDI
+1 NAME Уляна Северинівна /Тестенко/
+1 SEX F
+1 BIRT
+2 DATE 1882
+2 PLAC Кам'янець
+1 FAMC @F2@
+0 @I9@ INDI
+1 NAME Килина Опанасівна /Прикладів/
+1 SEX F
+1 BIRT
+2 DATE 1840
+2 PLAC Кам'янець
+1 FAMS @F3@
+0 @I10@ INDI
+1 NAME Роман Северинович /Тестенко/
+1 SEX M
+1 BIRT
+2 DATE 1888
+2 PLAC Кам'янець
+1 FAMC @F3@
+1 FAMS @F6@
+0 @I11@ INDI
+1 NAME Bronisław /Kowalski/
+1 SEX M
+1 BIRT
+2 DATE 1855
+1 FAMS @F4@
+0 @I12@ INDI
+1 NAME Kazimierz /Kowalski/
+1 SEX M
+1 BIRT
+2 DATE 1881
+1 FAMC @F4@
+0 @I13@ INDI
+1 NAME Maria /Kowalska/
+1 SEX F
+1 BIRT
+2 DATE 1883
+1 FAMC @F4@
+0 @I14@ INDI
+1 NAME Олена Пилипівна /Прикладів/
+1 SEX F
+1 BIRT
+2 DATE 1880
+2 PLAC Вербівка
+1 FAMS @F5@
+0 @I15@ INDI
+1 NAME Максим Іванович /Тестенко/
+1 SEX M
+1 BIRT
+2 DATE 1903
+2 PLAC Вербівка
+1 FAMC @F5@
+0 @I16@ INDI
+1 NAME Ольга Іванівна /Тестенко/
+1 SEX F
+1 BIRT
+2 DATE BET 1905 AND 1907
+2 PLAC Вербівка
+1 FAMC @F5@
+0 @I17@ INDI
+1 NAME Ганна Йосипівна /Прикладів/
+1 SEX F
+1 BIRT
+2 DATE 1890
+2 PLAC Кам'янець
+1 FAMS @F6@
+0 @I18@ INDI
+1 NAME Петро Романович /Тестенко/
+1 SEX M
+1 BIRT
+2 DATE AFT 1912
+2 PLAC Кам'янець
+1 FAMC @F6@
+0 @I19@ INDI
+1 NAME Марія Романівна /Тестенко/
+1 SEX F
+1 BIRT
+2 DATE BEF 1915
+2 PLAC Кам'янець
+1 FAMC @F6@
+0 @I20@ INDI
+1 NAME Стефан Северинович /Тестенко/
+1 SEX M
+1 BIRT
+2 DATE 1884
+2 PLAC Кам'янець
+1 FAMC @F2@
+0 @I21@ INDI
+1 NAME Роксолана Гнатівна /Тестенко/
+1 SEX F
+1 BIRT
+2 DATE 1862
+2 PLAC Вербівка
+1 FAMC @F1@
+1 FAMS @F7@
+0 @I22@ INDI
+1 NAME Michał /Nowak/
+1 SEX M
+1 BIRT
+2 DATE 1858
+1 FAMS @F7@
+0 @I23@ INDI
+1 NAME Ірина Михайлівна /Новак/
+1 SEX F
+1 BIRT
+2 DATE 1884
+2 PLAC Жмеринка
+1 FAMC @F7@
+0 @I24@ INDI
+1 NAME Северин Михайлович /Новак/
+1 SEX M
+1 BIRT
+2 DATE 1887
+2 PLAC Жмеринка
+1 FAMC @F7@
+1 FAMS @F8@
+0 @I25@ INDI
+1 NAME Феодосія Тимофіївна /Прикладів/
+1 SEX F
+1 BIRT
+2 DATE ABT 1888
+1 FAMS @F8@
+0 @I26@ INDI
+1 NAME Тимофій Северинович /Новак/
+1 SEX M
+1 BIRT
+2 DATE 1912
+2 PLAC Немирів
+1 FAMC @F8@
+0 @I27@ INDI
+1 NAME Килина Северинівна /Новак/
+1 SEX F
+1 BIRT
+2 DATE BET 1914 AND 1916
+2 PLAC Немирів
+1 FAMC @F8@
+0 @I28@ INDI
+1 NAME Меланія Гордіївна /Безрідна/
+1 SEX F
+1 BIRT
+2 DATE 1875
+2 PLAC Тульчин
+0 @F1@ FAM
+1 HUSB @I1@
+1 WIFE @I2@
+1 MARR
+2 DATE 5 JUN 1855
+2 PLAC Вербівка
+1 CHIL @I3@
+1 CHIL @I4@
+1 CHIL @I5@
+1 CHIL @I21@
+0 @F2@ FAM
+1 HUSB @I3@
+1 WIFE @I6@
+1 MARR
+2 DATE 3 OCT 1878
+2 PLAC Кам'янець
+1 CHIL @I7@
+1 CHIL @I8@
+1 CHIL @I20@
+0 @F3@ FAM
+1 HUSB @I3@
+1 WIFE @I9@
+1 MARR
+2 DATE BET 1886 AND 1887
+2 PLAC Кам'янець
+1 CHIL @I10@
+0 @F4@ FAM
+1 HUSB @I11@
+1 WIFE @I4@
+1 MARR
+2 DATE 1880
+2 PLAC Летичів
+1 CHIL @I12@
+1 CHIL @I13@
+0 @F5@ FAM
+1 HUSB @I7@
+1 WIFE @I14@
+1 MARR
+2 DATE 1902
+2 PLAC Вербівка
+1 CHIL @I15@
+1 CHIL @I16@
+0 @F6@ FAM
+1 HUSB @I10@
+1 WIFE @I17@
+1 CHIL @I18@
+1 CHIL @I19@
+0 @F7@ FAM
+1 HUSB @I22@
+1 WIFE @I21@
+1 MARR
+2 DATE 1883
+2 PLAC Жмеринка
+1 CHIL @I23@
+1 CHIL @I24@
+0 @F8@ FAM
+1 HUSB @I24@
+1 WIFE @I25@
+1 MARR
+2 DATE ABT 1910
+2 PLAC Немирів
+1 CHIL @I26@
+1 CHIL @I27@
+0 @S1@ SOUR
+1 TITL Вербівська метрична книга
+0 @S2@ SOUR
+1 TITL Кам'янецька метрична книга
+0 TRLR

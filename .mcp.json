@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "genealogy-workspace": {
+      "command": "/Users/dmytrorudenko/Projects/DNA-DB/Genealogy.Workspace/publish/GenealogyMcp/run.sh",
+      "args": []
+    }
+  }
+}

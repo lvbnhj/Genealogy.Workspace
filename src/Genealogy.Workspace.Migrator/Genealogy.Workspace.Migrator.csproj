@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Genealogy.Workspace.Migrator</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Migrator uses Npgsql types (NpgsqlCommand/NpgsqlParameter) directly and
+         calls MigrationEngine APIs whose signatures reference DbUp's IUpgradeLog,
+         so declare both explicitly rather than relying on them flowing
+         transitively through the Data project reference (which .NET does not
+         resolve reliably when this project is built in isolation). -->
+    <PackageReference Include="Npgsql" Version="10.0.3" />
+    <PackageReference Include="dbup-postgresql" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Genealogy.Workspace.Data\Genealogy.Workspace.Data.csproj" />
+  </ItemGroup>
+
+</Project>

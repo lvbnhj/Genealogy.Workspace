@@ -1,0 +1,42 @@
+-- 0003_seed_name_variant_rules.sql
+--
+-- Seed migration for genealogy.name_variant_rule.
+--
+-- SOURCE: ged.NameVariantRule (SQL Server, DnaData).
+-- EXPORT DATE: 2026-07-12.
+-- SOURCE ROW COUNT AT EXPORT: 0 (the live ged.NameVariantRule table was EMPTY).
+--
+-- Because the source table held no rows at export time, this migration is an
+-- intentional NO-OP. No rules are fabricated here. genealogy.name_variant_rule
+-- will be populated later by the Phase 3 GEDCOM importer or by a subsequent
+-- seed migration once real name-variant rules exist.
+--
+-- Target table shape (created in 0002, per the Phase 2 schema contract):
+--   genealogy.name_variant_rule
+--     name_variant_rule_id bigint GENERATED ALWAYS AS IDENTITY PK  (auto)
+--     rule_type            varchar(30) NOT NULL
+--                          CHECK IN ('given_name','surname','patronymic',
+--                                    'transliteration','spelling','title')
+--     canonical_value      text NOT NULL
+--     variant_value        text NOT NULL
+--     language_code        varchar(20) NULL
+--     script_code          varchar(10) NULL
+--     confidence           numeric(5,4) NOT NULL DEFAULT 1.0
+--                          CHECK (confidence >= 0.0 AND confidence <= 1.0)
+--     notes                text NULL
+--     is_active            boolean NOT NULL DEFAULT true
+--     created_at           timestamptz NOT NULL DEFAULT now()  (auto)
+--     updated_at           timestamptz NULL                    (auto)
+--     UNIQUE (rule_type, canonical_value, variant_value)
+--
+-- When rows are added by a future seed, INSERT them with
+--   ON CONFLICT (rule_type, canonical_value, variant_value) DO NOTHING
+-- so re-running composes safely with the unique constraint.
+--
+-- IMMUTABILITY: Released migrations are immutable. Once this file has been
+-- applied to any shared environment it must never be edited. Correct or extend
+-- the seed by adding a new, higher-numbered migration instead of changing this
+-- one. Editing an applied migration breaks the schema_version journal and
+-- produces divergent databases.
+
+-- no rows

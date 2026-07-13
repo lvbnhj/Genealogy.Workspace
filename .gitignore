@@ -1,0 +1,37 @@
+.DS_Store
+
+# .NET
+bin/
+obj/
+TestResults/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs and temp
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+.gedwork/
+*.ged
+
+# IDE
+.idea/
+
+# Published MCP server build output (regenerate with scripts/publish_mcp.sh)
+publish/*
+
+# Python
+__pycache__/
+*.pyc
+
+# Keep synthetic GEDCOM regression fixtures trackable even if the blanket
+# *.ged ignore rule above would otherwise exclude them.
+!tools/gedcom/tests/fixtures/*.ged
+
+# Local secrets and backups — never commit real credentials or dump files.
+.env
+backups/

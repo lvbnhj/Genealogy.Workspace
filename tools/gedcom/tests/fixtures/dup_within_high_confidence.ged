@@ -1,0 +1,44 @@
+0 HEAD
+1 SOUR MyHeritage.com
+2 VERS 1.0
+2 NAME MyHeritage.com Family Trees
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 CHAR UTF-8
+1 LANG Ukrainian
+0 @I1@ INDI
+1 NAME Іван Петрович /Петренко/
+1 SEX M
+1 BIRT
+2 DATE 1900
+2 PLAC Вербівка
+0 @I2@ INDI
+1 NAME Іван Петрович /Петренко/
+1 SEX M
+1 BIRT
+2 DATE 1900
+2 PLAC Вербівка
+1 FAMC @F1@
+0 @I3@ INDI
+1 NAME Петро Максимович /Петренко/
+1 SEX M
+1 BIRT
+2 DATE 1870
+2 PLAC Вербівка
+1 FAMS @F1@
+0 @I4@ INDI
+1 NAME Ганна Іванівна /Прикладів/
+1 SEX F
+1 BIRT
+2 DATE 1875
+2 PLAC Вербівка
+1 FAMS @F1@
+0 @F1@ FAM
+1 HUSB @I3@
+1 WIFE @I4@
+1 MARR
+2 DATE 1895
+2 PLAC Вербівка
+1 CHIL @I2@
+0 TRLR

@@ -1,0 +1,45 @@
+0 HEAD
+1 CHAR UTF-8
+0 @I1@ INDI
+1 NAME Іоанн Іванович /Сімашко/
+1 SEX M
+1 BIRT
+2 DATE 1801
+2 PLAC Немиринці
+2 SOUR @S1@
+3 PAGE ф.1, оп.2, спр.3, арк.4
+3 QUAY 3
+3 DATA
+4 DATE 1900
+4 TEXT Метричний запис про народження Іоанна
+5 CONT Хрещення в Немиринцях
+0 @I2@ INDI
+1 NAME Jan /Siemaszko/
+1 SEX M
+1 BIRT
+2 DATE 1801
+2 PLAC Nemyrintsi
+1 DEAT
+2 DATE 1880
+2 SOUR @S2@
+3 PAGE scan 42
+3 TEXT Death citation text
+0 @I3@ INDI
+1 NAME І[пишов?] /Семашко/
+1 SEX M
+0 @I4@ INDI
+1 NAME Павліна
+1 SEX F
+0 @I5@ INDI
+1 SEX F
+0 @I6@ INDI
+1 NAME Іван/Jan /Семашко/Siemaszko/
+1 SEX M
+0 @I7@ INDI
+1 NAME Людмила //
+1 SEX F
+0 @S1@ SOUR
+1 TITL Немиринецька метрична книга
+0 @S2@ SOUR
+1 TITL Death register
+0 TRLR

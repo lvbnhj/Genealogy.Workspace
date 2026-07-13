@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:17
+    # Container name defaults to genealogy-postgres. Override CONTAINER_NAME in
+    # .env (together with a unique PGPORT) to run several independent workspace
+    # installs on one machine without name/port collisions.
+    container_name: ${CONTAINER_NAME:-genealogy-postgres}
+    ports:
+      # Bind to the local interface only (plan section 13: PostgreSQL listens
+      # only on local interfaces by default).
+      - "127.0.0.1:${PGPORT:-5432}:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      # Named Docker volume — data lives outside the Git checkout (plan §13).
+      - genealogy_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  genealogy_pgdata:
