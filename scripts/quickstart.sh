@@ -29,6 +29,11 @@ export GENEALOGY_DB_PASSWORD="$POSTGRES_PASSWORD"
 
 # Step 2: run the end-to-end quickstart, forwarding any extra args.
 echo "Running quickstart (import GEDCOM + add evidence screenshot)..."
-dotnet run --project "$WORKSPACE_DIR/src/Genealogy.Workspace.Migrator" -- quickstart "$@"
+PUBLISHED_MIGRATOR="$WORKSPACE_DIR/app/migrator/Genealogy.Workspace.Migrator.dll"
+if [[ -f "$PUBLISHED_MIGRATOR" ]]; then
+  dotnet "$PUBLISHED_MIGRATOR" quickstart "$@"
+else
+  dotnet run --project "$WORKSPACE_DIR/src/Genealogy.Workspace.Migrator" -- quickstart "$@"
+fi
 
 echo "Quickstart finished. A sample GEDCOM was imported and an evidence screenshot stored."

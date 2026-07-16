@@ -23,6 +23,7 @@ TestResults/
 
 # Published MCP server build output (regenerate with scripts/publish_mcp.sh)
 publish/*
+artifacts/
 
 # Python
 __pycache__/

@@ -271,11 +271,31 @@ Run this before every release, and after pulling a new migration set.
 
 ## CI note
 
-This is a local-only repository (no CI pipeline yet). The smoke.sh script plus
-the integration tests in `tests/` fulfill the Phase 1 requirement of "CI build
-plus migration-from-empty test." If a remote and CI pipeline appear later, wire
-`smoke.sh` into the release/deploy stage and keep integration tests in the
-normal build pipeline.
+GitHub Actions runs the solution build, all 168 .NET integration tests, and all
+13 GEDCOM Python tests for every pull request and push to `main`. Test results
+are uploaded even when the test step fails. The CI PostgreSQL container uses a
+run-specific name and port and is removed together with its volume at the end
+of the job.
+
+## Prebuilt release artifacts (Runtime only)
+
+The **Build release bundle** GitHub Actions workflow can be started manually
+and also runs whenever a GitHub Release is published. It creates `.tar.gz` and
+`.zip` bundles containing framework-dependent builds of both the MCP server and
+Migrator, plus migrations, operational scripts, and the GEDCOM parser. On a
+target machine these bundles require the **.NET 10 Runtime**, not the SDK.
+Docker is still required for PostgreSQL; Python 3 is required only for GEDCOM
+staging/import.
+
+For a local package build:
+
+```bash
+./scripts/package_release.sh dev
+```
+
+Archives are written to `artifacts/`. A published GitHub Release receives the
+same archives as release assets; a manually dispatched workflow exposes them
+as workflow artifacts.
 
 ## Building this repository
 

@@ -32,6 +32,11 @@ export GENEALOGY_DB_PORT="$PGPORT"
 export GENEALOGY_DB_DATABASE="$POSTGRES_DB"
 export GENEALOGY_DB_USERNAME="$POSTGRES_USER"
 export GENEALOGY_DB_PASSWORD="$POSTGRES_PASSWORD"
-dotnet run --project "$WORKSPACE_DIR/src/Genealogy.Workspace.Migrator" -- migrate
+PUBLISHED_MIGRATOR="$WORKSPACE_DIR/app/migrator/Genealogy.Workspace.Migrator.dll"
+if [[ -f "$PUBLISHED_MIGRATOR" ]]; then
+  dotnet "$PUBLISHED_MIGRATOR" migrate
+else
+  dotnet run --project "$WORKSPACE_DIR/src/Genealogy.Workspace.Migrator" -- migrate
+fi
 
 echo "Genealogy workspace is up."
