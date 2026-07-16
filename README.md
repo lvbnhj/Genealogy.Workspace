@@ -279,8 +279,8 @@ of the job.
 
 ## Prebuilt release artifacts (Runtime only)
 
-The **Build release bundle** GitHub Actions workflow can be started manually
-and also runs whenever a GitHub Release is published. It creates `.tar.gz` and
+The **Build release bundle** GitHub Actions workflow can be started manually.
+Pushing a `v*` tag also runs it and creates a GitHub Release automatically. It creates `.tar.gz` and
 `.zip` bundles containing framework-dependent builds of both the MCP server and
 Migrator, plus migrations, operational scripts, and the GEDCOM parser. On a
 target machine these bundles require the **.NET 10 Runtime**, not the SDK.
@@ -293,9 +293,9 @@ For a local package build:
 ./scripts/package_release.sh dev
 ```
 
-Archives are written to `artifacts/`. A published GitHub Release receives the
-same archives as release assets; a manually dispatched workflow exposes them
-as workflow artifacts.
+Archives are written to `artifacts/`. A tag build creates a GitHub Release with
+the archives attached as release assets; a manually dispatched workflow exposes
+them only as temporary workflow artifacts under the Actions run.
 
 ## Building this repository
 
