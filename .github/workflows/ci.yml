@@ -41,6 +41,24 @@ jobs:
       - name: Build
         run: dotnet build Genealogy.Workspace.sln -c Release --no-restore
 
+      - name: Verify prebuilt runtime installer
+        shell: bash
+        run: |
+          ./scripts/package_release.sh ci
+          install_dir="$(mktemp -d)"
+          ./scripts/bootstrap.sh \
+            --asset-url "file://$PWD/artifacts/Genealogy.Workspace-ci.tar.gz" \
+            --version ci \
+            --install-dir "$install_dir" \
+            --client codex \
+            --no-start
+          test -f "$install_dir/app/mcp/Genealogy.Workspace.McpServer.dll"
+          test -f "$install_dir/app/migrator/Genealogy.Workspace.Migrator.dll"
+          test -f "$install_dir/.codex/config.toml"
+          test ! -d "$install_dir/src"
+          grep -F "command = \"$install_dir/run-mcp.sh\"" \
+            "$install_dir/.codex/config.toml"
+
       - name: Run GEDCOM Python tests
         run: python3 -m unittest discover -s tools/gedcom/tests -p 'test_*.py' -v
 

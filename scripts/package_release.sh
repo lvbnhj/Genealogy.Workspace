@@ -26,6 +26,7 @@ cp -R "$WORKSPACE_DIR/database" "$BUNDLE_DIR/database"
 cp -R "$WORKSPACE_DIR/tools" "$BUNDLE_DIR/tools"
 mkdir -p "$BUNDLE_DIR/scripts"
 cp "$WORKSPACE_DIR/scripts/up.sh" "$BUNDLE_DIR/scripts/up.sh"
+cp "$WORKSPACE_DIR/scripts/install-runtime.sh" "$BUNDLE_DIR/scripts/install-runtime.sh"
 cp "$WORKSPACE_DIR/scripts/quickstart.sh" "$BUNDLE_DIR/scripts/quickstart.sh"
 cp "$WORKSPACE_DIR/scripts/backup.sh" "$BUNDLE_DIR/scripts/backup.sh"
 cp "$WORKSPACE_DIR/scripts/restore.sh" "$BUNDLE_DIR/scripts/restore.sh"
@@ -47,6 +48,23 @@ rm -f "$ARTIFACTS_DIR/$BUNDLE_NAME.tar.gz" "$ARTIFACTS_DIR/$BUNDLE_NAME.zip"
 tar -C "$ARTIFACTS_DIR" -czf "$ARTIFACTS_DIR/$BUNDLE_NAME.tar.gz" "$BUNDLE_NAME"
 (cd "$ARTIFACTS_DIR" && zip -qr "$BUNDLE_NAME.zip" "$BUNDLE_NAME")
 
+# Stable aliases make /releases/latest/download/Genealogy.Workspace.tar.gz a
+# permanent URL, while the versioned assets keep each release reproducible.
+cp "$ARTIFACTS_DIR/$BUNDLE_NAME.tar.gz" "$ARTIFACTS_DIR/Genealogy.Workspace.tar.gz"
+cp "$ARTIFACTS_DIR/$BUNDLE_NAME.zip" "$ARTIFACTS_DIR/Genealogy.Workspace.zip"
+if command -v shasum >/dev/null 2>&1; then
+  (cd "$ARTIFACTS_DIR" && shasum -a 256 \
+    "$BUNDLE_NAME.tar.gz" "$BUNDLE_NAME.zip" \
+    Genealogy.Workspace.tar.gz Genealogy.Workspace.zip > SHA256SUMS)
+else
+  (cd "$ARTIFACTS_DIR" && sha256sum \
+    "$BUNDLE_NAME.tar.gz" "$BUNDLE_NAME.zip" \
+    Genealogy.Workspace.tar.gz Genealogy.Workspace.zip > SHA256SUMS)
+fi
+
 echo "Created:"
 echo "  $ARTIFACTS_DIR/$BUNDLE_NAME.tar.gz"
 echo "  $ARTIFACTS_DIR/$BUNDLE_NAME.zip"
+echo "  $ARTIFACTS_DIR/Genealogy.Workspace.tar.gz"
+echo "  $ARTIFACTS_DIR/Genealogy.Workspace.zip"
+echo "  $ARTIFACTS_DIR/SHA256SUMS"

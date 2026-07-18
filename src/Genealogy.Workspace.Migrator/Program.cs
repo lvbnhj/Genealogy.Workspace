@@ -1,4 +1,5 @@
 using Genealogy.Workspace.Data;
+using Genealogy.Workspace.Data.Configuration;
 using Genealogy.Workspace.Data.Repositories;
 using Genealogy.Workspace.Data.Research;
 using Genealogy.Workspace.Data.Resolvers;
@@ -20,9 +21,61 @@ switch (command)
         return RunStatus();
     case "quickstart":
         return await RunQuickstartAsync(args);
+    case "register-mcp":
+        return RunRegisterMcp(args);
     default:
         PrintUsage();
         return ExitUsage;
+}
+
+int RunRegisterMcp(string[] argv)
+{
+    string? client = null;
+    string? configPath = null;
+    string? commandPath = null;
+    var serverName = "genealogy-workspace";
+
+    for (var i = 1; i < argv.Length; i++)
+    {
+        var arg = argv[i];
+        if (arg is not ("--client" or "--config" or "--command" or "--name"))
+        {
+            Console.Error.WriteLine($"Unknown register-mcp argument: {arg}");
+            return ExitUsage;
+        }
+
+        if (++i >= argv.Length)
+        {
+            Console.Error.WriteLine($"{arg} requires a value.");
+            return ExitUsage;
+        }
+
+        switch (arg)
+        {
+            case "--client": client = argv[i]; break;
+            case "--config": configPath = argv[i]; break;
+            case "--command": commandPath = argv[i]; break;
+            case "--name": serverName = argv[i]; break;
+        }
+    }
+
+    if (client is null || configPath is null || commandPath is null)
+    {
+        Console.Error.WriteLine("register-mcp requires --client, --config, and --command.");
+        return ExitUsage;
+    }
+
+    try
+    {
+        McpClientConfigRegistrar.Register(client, configPath, serverName, commandPath);
+        Console.WriteLine($"Registered '{serverName}' for {client} in {Path.GetFullPath(configPath)}");
+        return ExitOk;
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"MCP registration failed: {ex.Message}");
+        return ExitError;
+    }
 }
 
 int RunMigrate()
@@ -340,6 +393,15 @@ void PrintUsage()
           status     Show applied and pending migrations without changing anything.
           quickstart Import a sample GEDCOM into a tree and store an evidence
                      screenshot, end to end (Phase 7 exit criterion).
+          register-mcp
+                     Add or update this runtime in an MCP client config while
+                     preserving all unrelated settings.
+
+        register-mcp options:
+          --client <kind>      mcp-json or codex
+          --config <path>      .mcp.json or Codex config.toml path
+          --command <path>     Absolute or relative path to run-mcp.sh
+          --name <name>        MCP server name (default: genealogy-workspace)
 
         quickstart options:
           --ged <path>         GEDCOM file to import

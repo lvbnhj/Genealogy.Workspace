@@ -5,35 +5,49 @@ Local PostgreSQL 17 workspace for the genealogy platform (see
 Docker Compose configuration, operational scripts, and (in `src/`) the .NET
 projects.
 
-## Requirements
+## Runtime requirements
 
 - Docker (with the `docker compose` plugin)
-- .NET SDK (for the migration runner)
+- .NET 10 Runtime (the SDK is not required)
 - Host port 5432 free (configurable via `PGPORT` in `.env`)
 
-## Install with one command (no clone)
+Developing or building the repository additionally requires the .NET 10 SDK.
 
-If you don't want to clone at all, `bootstrap` downloads the source and runs the
-installer for you. It needs only `curl`+`tar` (macOS/Linux) or PowerShell 5+
-(Windows) — **not** git — and then hands off to `install.sh`/`install.ps1`,
-which check for Docker and the .NET SDK.
+## Install with one command (prebuilt runtime, no source)
+
+Create or enter an empty installation directory and pipe the bootstrap script
+to Bash. It resolves the requested GitHub Release, downloads only the prebuilt
+runtime bundle, starts PostgreSQL, applies migrations, and registers the MCP
+server. It does not download repository source and does not require Git or the
+.NET SDK.
 
 ```bash
-# macOS / Linux
-curl -fsSL https://raw.githubusercontent.com/lvbnhj/Genealogy.Workspace/main/scripts/bootstrap.sh | bash
+mkdir -p ~/genealogy-workspace && cd ~/genealogy-workspace
+curl -fsSL https://raw.githubusercontent.com/lvbnhj/Genealogy.Workspace/main/scripts/bootstrap.sh \
+  | bash
 ```
 
-```powershell
-# Windows (PowerShell)
-irm https://raw.githubusercontent.com/lvbnhj/Genealogy.Workspace/main/scripts/bootstrap.ps1 | iex
+The default writes `.mcp.json` in the installation directory. For Codex, write
+a project-local `.codex/config.toml` instead:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/lvbnhj/Genealogy.Workspace/main/scripts/bootstrap.sh \
+  | bash -s -- --client codex
 ```
 
-The source is extracted into `./genealogy-workspace` by default; override with
-`TARGET_DIR`, pick a tag/branch with `REF`, install a fork with `REPO`, or set
-`RUN_INSTALL=0` to only download without installing. For a private fork, set a
-token first (`GITHUB_TOKEN=ghp_… ` before `bash`, or `$env:GITHUB_TOKEN` before
-`irm`). Full option list is in the header of
-[`scripts/bootstrap.sh`](scripts/bootstrap.sh).
+To register Codex globally rather than only for this directory:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/lvbnhj/Genealogy.Workspace/main/scripts/bootstrap.sh \
+  | bash -s -- --client codex --config "$HOME/.codex/config.toml"
+```
+
+Useful parameters are `--version <release-tag>`, `--install-dir <path>`,
+`--config <path>`, `--name <server-name>`, `--port <host-port>`,
+`--container-name <name>`, `--client none`, and `--no-start`.
+Run the script with `--help` for the complete list. Re-running it in an existing
+runtime directory upgrades the binaries and migrations while preserving
+`.env`, backups, client configs, and the Docker volume.
 
 > These commands pipe a script from the network into your shell. That is
 > convenient but you are trusting the source — read
@@ -42,8 +56,8 @@ token first (`GITHUB_TOKEN=ghp_… ` before `bash`, or `$env:GITHUB_TOKEN` befor
 
 ## Install from a fresh clone
 
-On a machine that already has **Docker** (with the `docker compose` plugin)
-and the **.NET SDK** installed, one script does everything — brings up
+On a development machine that has **Docker** and the **.NET SDK**, one script
+does everything from a source checkout — brings up
 PostgreSQL, applies migrations, builds and publishes the MCP server, and
 registers it in this repo's `.mcp.json` with the correct absolute path for
 *your* clone:
@@ -61,8 +75,7 @@ entry already present in `.mcp.json`. After it finishes, restart/reconnect
 your MCP client to pick up the `genealogy-workspace` server, then try
 `./scripts/quickstart.sh` (below) to prove the whole pipeline end to end.
 
-Neither script installs Docker or the .NET SDK themselves — install those
-first if you don't already have them.
+Neither source-install script installs Docker or the .NET SDK itself.
 
 ## Install / one-command start
 
@@ -77,7 +90,7 @@ iterating on the schema):
 This will:
 
 1. Create `Genealogy.Workspace/.env` from `.env.example` with a randomly
-   generated password (via `openssl rand -hex 16`) if it does not exist yet.
+   generated password if it does not exist yet.
 2. Start the PostgreSQL container (`postgres:17`, named `genealogy-postgres`
    by default — see `CONTAINER_NAME` under Configuration) and wait for its
    healthcheck to pass.
@@ -196,6 +209,18 @@ right container automatically.
 
 ## Upgrade
 
+For a runtime installation, re-run the curl command from its directory. The
+bootstrap resolves the latest release and preserves the database volume and
+local configuration:
+
+```bash
+cd ~/genealogy-workspace
+curl -fsSL https://raw.githubusercontent.com/lvbnhj/Genealogy.Workspace/main/scripts/bootstrap.sh \
+  | bash -s -- --client codex
+```
+
+For a source checkout:
+
 ```bash
 git pull
 ./scripts/up.sh
@@ -271,7 +296,7 @@ Run this before every release, and after pulling a new migration set.
 
 ## CI note
 
-GitHub Actions runs the solution build, all 168 .NET integration tests, and all
+GitHub Actions runs the solution build, all 171 .NET integration tests, and all
 13 GEDCOM Python tests for every pull request and push to `main`. Test results
 are uploaded even when the test step fails. The CI PostgreSQL container uses a
 run-specific name and port and is removed together with its volume at the end
@@ -280,10 +305,11 @@ of the job.
 ## Prebuilt release artifacts (Runtime only)
 
 The **Build release bundle** GitHub Actions workflow can be started manually.
-Pushing a `v*` tag also runs it and creates a GitHub Release automatically. It creates `.tar.gz` and
-`.zip` bundles containing framework-dependent builds of both the MCP server and
-Migrator, plus migrations, operational scripts, and the GEDCOM parser. On a
-target machine these bundles require the **.NET 10 Runtime**, not the SDK.
+Pushing a `v*` tag also runs it and creates a GitHub Release automatically. It
+creates `.tar.gz` and `.zip` bundles containing framework-dependent builds of
+both the MCP server and Migrator, plus migrations, operational scripts, and the
+GEDCOM parser. On a target machine these bundles require the **.NET 10
+Runtime**, not the SDK.
 Docker is still required for PostgreSQL; Python 3 is required only for GEDCOM
 staging/import.
 
@@ -294,8 +320,9 @@ For a local package build:
 ```
 
 Archives are written to `artifacts/`. A tag build creates a GitHub Release with
-the archives attached as release assets; a manually dispatched workflow exposes
-them only as temporary workflow artifacts under the Actions run.
+versioned archives, stable `Genealogy.Workspace.tar.gz` / `.zip` aliases for
+`releases/latest/download`, and `SHA256SUMS`. A manually dispatched workflow
+exposes them only as temporary workflow artifacts under the Actions run.
 
 ## Building this repository
 

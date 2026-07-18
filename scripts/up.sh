@@ -10,7 +10,11 @@ ENV_EXAMPLE="$WORKSPACE_DIR/.env.example"
 
 if [[ ! -f "$ENV_FILE" ]]; then
   echo "No .env found — creating one from .env.example with a generated password."
-  PASSWORD="$(openssl rand -hex 16)"
+  if command -v openssl >/dev/null 2>&1; then
+    PASSWORD="$(openssl rand -hex 16)"
+  else
+    PASSWORD="$(od -An -N16 -tx1 /dev/urandom | tr -d ' \n')"
+  fi
   sed "s/^POSTGRES_PASSWORD=.*/POSTGRES_PASSWORD=${PASSWORD}/" "$ENV_EXAMPLE" > "$ENV_FILE"
   chmod 600 "$ENV_FILE"
   echo "Wrote $ENV_FILE (password generated; not committed to git)."

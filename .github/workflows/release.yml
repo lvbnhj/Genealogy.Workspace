@@ -36,6 +36,9 @@ jobs:
           path: |
             artifacts/Genealogy.Workspace-*.tar.gz
             artifacts/Genealogy.Workspace-*.zip
+            artifacts/Genealogy.Workspace.tar.gz
+            artifacts/Genealogy.Workspace.zip
+            artifacts/SHA256SUMS
           if-no-files-found: error
 
       - name: Create GitHub Release
@@ -46,6 +49,9 @@ jobs:
           gh release create "${{ github.ref_name }}"
           artifacts/Genealogy.Workspace-*.tar.gz
           artifacts/Genealogy.Workspace-*.zip
+          artifacts/Genealogy.Workspace.tar.gz
+          artifacts/Genealogy.Workspace.zip
+          artifacts/SHA256SUMS
           --verify-tag
           --generate-notes
           --title "Genealogy.Workspace ${{ github.ref_name }}"
